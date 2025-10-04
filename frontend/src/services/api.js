@@ -31,6 +31,7 @@ export const simulateImpact = async (
 // USGS data endpoints
 export const getSeismicData = async () => {
   const res = await axios.get(`${API_URL}/usgs/seismic`);
+  console.log(res?.data);
   return res.data;
 };
 

@@ -8,7 +8,7 @@ import Impactor2025Scenario from "./components/Impactor2025Scenario";
 //import "./accessibility.css";
 import { dataContext } from "./Context";
 import Header from "./components/Header";
-import Navigation from "./components/Navigation";
+
 import Simulation from "./components/Simulation";
 import Analysis from "./components/Analysis";
 
@@ -21,8 +21,6 @@ const App = () => {
       {/* Header */}
       <Header />
 
-      {/* Navigation */}
-      <Navigation />
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Routes>

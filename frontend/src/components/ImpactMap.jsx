@@ -17,6 +17,7 @@ import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import { data } from "react-router-dom";
 import { dataContext } from "@/Context";
+import { getSeismicData } from "@/services/api";
 
 // Fix for default markers in react-leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -41,6 +42,7 @@ const ImpactMap = ({
   velocityShift = 0,
   selectedMarker,
   tsunamiZones = [],
+  onMapClick,
 }) => {
   const { asteroidsData: asteroids = [], impactResult } =
     useContext(dataContext);
@@ -52,6 +54,8 @@ const ImpactMap = ({
     const loadData = async () => {
       try {
         // In a real implementation, these would be API calls
+        const res = await getSeismicData();
+        console.log(res?.data);
         // For now, we'll generate sample data
         const sampleTsunamiZones = [
           { lat: 35.6762, lng: 139.6503, risk: "high", name: "Tokyo Bay" },
@@ -135,6 +139,7 @@ const ImpactMap = ({
         zoom={impactResult ? 6 : 2}
         style={{ height: "500px", width: "100%" }}
         className="rounded-lg"
+        onClick={onMapClick}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

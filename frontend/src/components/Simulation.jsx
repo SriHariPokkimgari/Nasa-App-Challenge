@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import RiskChart from "./RiskChart";
 import OrbitalView from "./OrbitalView";
 import ImpactMap from "./ImpactMap";
@@ -14,7 +14,69 @@ const Simulation = () => {
     setVelocity,
     velocityChange,
     setVelocityChange,
+    selectedId,
+    setSelectedId,
+    asteroidsData,
+    setImpactResult,
   } = useContext(dataContext);
+
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [simError, setSimError] = useState("");
+
+  // Handler for map click
+  const handleMapClick = (e) => {
+    setSelectedLocation([e.latlng.lat, e.latlng.lng]);
+  };
+
+  // Handler for running simulation
+  const handleRunSimulation = () => {
+    setSimError("");
+    if (!selectedId) {
+      setSimError("Please select an asteroid.");
+      return;
+    }
+    if (!selectedLocation) {
+      setSimError("Please select a location on the map.");
+      return;
+    }
+    // Simulate impact result (replace with real calculation or API call)
+    const asteroid = asteroidsData.find((a) => a.id === selectedId);
+    if (!asteroid) {
+      setSimError("Asteroid data not found.");
+      return;
+    }
+    // Example calculation (replace with real logic)
+    setImpactResult({
+      mass: size * 1000,
+      energy: size * velocity * 1e9,
+      tntEquivalent: size * velocity * 1e6,
+      crater: size * 10,
+      seismicMagnitude: Math.log10(size * velocity) + 2,
+      tsunamiHeight: Math.max(0, (size * velocity) / 100),
+      riskAssessment: {
+        riskLevel:
+          size * velocity > 10000
+            ? "HIGH"
+            : size * velocity > 3000
+            ? "MEDIUM"
+            : "LOW",
+        riskScore: Math.min(1, (size * velocity) / 20000),
+      },
+      environmentalEffects: {
+        impactType: size > 500 ? "Global" : size > 100 ? "Regional" : "Local",
+      },
+      location: selectedLocation,
+      asteroid,
+    });
+  };
+
+  // Pass click handler to ImpactMap
+  const impactMapProps = {
+    onMapClick: handleMapClick,
+    selectedMarker: selectedLocation,
+    crater: impactResult?.crater,
+  };
+
   return (
     <div className="space-y-8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -70,6 +132,24 @@ const Simulation = () => {
                   {velocityChange} km/s
                 </span>
               </div>
+              <button
+                className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors"
+                onClick={handleRunSimulation}
+              >
+                Run Simulation
+              </button>
+              {/* {simError && (
+                <div className="text-red-400 mt-2 font-semibold">
+                  {simError}
+                </div>
+              )} */}
+              {/* <div className="text-xs text-gray-400 mt-2">
+                1. Select an asteroid
+                <br />
+                2. Select a place on the map
+                <br />
+                3. Click Run Simulation
+              </div> */}
             </div>
           </div>
         </div>
@@ -119,25 +199,23 @@ const Simulation = () => {
             </div>
           )}
 
-          <RiskChart />
+          <div className="rounded-lg overflow-hidden shadow-lg border-2 border-gray-600">
+            <h2 className="text-2xl font-bold text-center p-4 bg-gray-800">
+              Impact Map
+            </h2>
+            <ImpactMap {...impactMapProps} />
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="rounded-lg overflow-hidden shadow-lg border-2 border-gray-600">
           <h2 className="text-2xl font-bold text-center p-4 bg-gray-800">
             3D Orbital View
           </h2>
-          <OrbitalView />
+  
         </div>
-
-        <div className="rounded-lg overflow-hidden shadow-lg border-2 border-gray-600">
-          <h2 className="text-2xl font-bold text-center p-4 bg-gray-800">
-            Impact Map
-          </h2>
-          <ImpactMap />
-        </div>
-      </div>
+      </div>  */}
     </div>
   );
 };
