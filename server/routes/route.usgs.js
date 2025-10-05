@@ -32,8 +32,8 @@ router.get("/seismic", async (req, res) => {
       { timeout: 10000 }
     );
 
-    setCachedData(cacheKey, response.data);
-    res.json(response.data);
+    setCachedData(cacheKey, response.data.features);
+    res.json(response.data.features);
   } catch (err) {
     console.error("USGS Seismic Error:", err);
     res.status(500).json({ error: "Failed to fetch USGS seismic data" });
@@ -54,8 +54,8 @@ router.get("/seismic/realtime", async (req, res) => {
       { timeout: 10000 }
     );
 
-    setCachedData(cacheKey, response.data);
-    res.json(response.data);
+    setCachedData(cacheKey, response.data.features);
+    res.json(response.data.features);
   } catch (err) {
     console.error("USGS Realtime Seismic Error:", err);
     res.status(500).json({ error: "Failed to fetch real-time seismic data" });

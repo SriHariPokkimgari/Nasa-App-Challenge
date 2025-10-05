@@ -1,6 +1,8 @@
 // backend/services/neoService.js
 import axios from "axios";
-const NASA_API_KEY = process.env.NASA_API_KEY || "DEMO_KEY";
+import dotenv from "dotenv";
+dotenv.config();
+const NASA_API_KEY = process.env.NASA_API_KEY;
 const BASE = "https://api.nasa.gov/neo/rest/v1";
 const cache = new Map();
 const TTL = 5 * 60 * 1000; // 5 minutes
@@ -40,4 +42,4 @@ async function fetchNeoById(id) {
   return res.data;
 }
 
-export { fetchNeoById, fetchNeoBrowse };
+export { fetchNeoBrowse, fetchNeoById };

@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
   try {
     const page = req.query.page || 0;
     const data = await fetchNeoBrowse(page);
-    res.json(data);
+    res.json(data?.near_earth_objects);
   } catch (err) {
     console.error(err?.response?.data || err.message || err);
     res.status(500).json({ error: "Failed to fetch asteroid list" });
@@ -37,7 +37,7 @@ router.get("/:id", async (req, res) => {
       name: data.name,
       nasa_jpl_url: data.nasa_jpl_url,
       is_potentially_hazardous_asteroid: data.is_potentially_hazardous_asteroid,
-      estimated_diameter: data.estimated_diameter,
+      estimated_diameter_kilo: data.estimated_diameter.kilometers,
       orbital_data: data.orbital_data,
       close_approach_data: data.close_approach_data,
     };
@@ -52,11 +52,18 @@ router.get("/:id", async (req, res) => {
 // body: { asteroidId?, diameter?, velocity?, velocityChange? }
 router.post("/simulate-impact", async (req, res) => {
   try {
-    let { asteroidId, diameter, velocity, velocityChange = 0 } = req.body;
+    let {
+      asteroidId,
+      diameter,
+      velocity,
+      velocityChange = 0,
+      lat,
+      lon,
+    } = req.body;
 
     if (asteroidId && (!diameter || !velocity)) {
       // if user provided asteroidId but not diameter/velocity, pull defaults
-      const neo = await neoService.fetchNeoById(asteroidId);
+      const neo = await fetchNeoById(asteroidId);
       // diameter: average of min & max in meters (if available)
       if (!diameter && neo.estimated_diameter?.meters) {
         const ed = neo.estimated_diameter.meters;
@@ -89,8 +96,8 @@ router.post("/simulate-impact", async (req, res) => {
 
     // Environmental effects (simplified location)
     const impactLocation = {
-      lat: 0, // Default to equator
-      lng: 0,
+      lat: lat,
+      lng: lon,
       isCoastal: Math.random() > 0.5,
     };
     const environmentalEffects = calculateEnvironmentalEffects(

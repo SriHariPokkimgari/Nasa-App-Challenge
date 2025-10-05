@@ -38,13 +38,20 @@ const RiskChart = () => {
   ];
 
   return (
-    <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-      <h3 className="text-xl font-bold mb-4">Risk Assessment</h3>
+    <div className="bg-gradient-to-br from-blue-900/80 to-gray-900/90 dark:from-black dark:to-gray-900 p-8 rounded-2xl shadow-2xl border border-blue-700/30 transition-colors">
+      <h3 className="text-2xl font-extrabold mb-6 flex items-center gap-2 text-blue-200">
+        <span className="inline-block text-yellow-400 text-2xl">
+          &#9888;&#65039;
+        </span>
+        Risk Assessment
+      </h3>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Risk Over Time */}
-        <div>
-          <h4 className="font-bold text-blue-400 mb-2">Risk Evolution</h4>
+        <div className="bg-white dark:bg-black p-6 rounded-xl shadow-lg border border-blue-600/30 transition-colors">
+          <h4 className="font-bold text-blue-300 mb-3 flex items-center gap-2">
+            <span className="text-lg">&#9201;</span> Risk Evolution
+          </h4>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={sampleData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
@@ -70,9 +77,9 @@ const RiskChart = () => {
         </div>
 
         {/* Risk Level Distribution */}
-        <div>
-          <h4 className="font-bold text-green-400 mb-2">
-            Risk Level Distribution
+        <div className="bg-white dark:bg-black p-6 rounded-xl shadow-lg border border-green-600/30 transition-colors">
+          <h4 className="font-bold text-green-300 mb-3 flex items-center gap-2">
+            <span className="text-lg">&#128200;</span> Risk Level Distribution
           </h4>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={riskLevelData}>
@@ -87,36 +94,38 @@ const RiskChart = () => {
                 }}
                 labelStyle={{ color: "#F3F4F6" }}
               />
-              <Bar dataKey="count" fill="#8884d8" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="count" fill="#10B981" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
       </div>
 
       {/* Risk Indicators */}
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-gray-700 p-4 rounded-lg">
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-gray-100 dark:bg-gray-900 p-4 rounded-xl shadow border border-green-500/30 transition-colors">
           <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            <span className="font-medium">Low Risk</span>
+            <span className="w-3 h-3 bg-green-500 rounded-full inline-block"></span>
+            <span className="font-medium text-green-200">Low Risk</span>
           </div>
-          <div className="text-sm text-gray-300 mt-1">Risk score &lt; 0.3</div>
+          <div className="text-sm text-green-100 mt-1">Risk score &lt; 0.3</div>
         </div>
 
-        <div className="bg-gray-700 p-4 rounded-lg">
+        <div className="bg-gray-100 dark:bg-gray-900 p-4 rounded-xl shadow border border-yellow-500/30 transition-colors">
           <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-            <span className="font-medium">Medium Risk</span>
+            <span className="w-3 h-3 bg-yellow-500 rounded-full inline-block"></span>
+            <span className="font-medium text-yellow-100">Medium Risk</span>
           </div>
-          <div className="text-sm text-gray-300 mt-1">Risk score 0.3 - 0.7</div>
+          <div className="text-sm text-yellow-100 mt-1">
+            Risk score 0.3 - 0.7
+          </div>
         </div>
 
-        <div className="bg-gray-700 p-4 rounded-lg">
+        <div className="bg-gray-100 dark:bg-gray-900 p-4 rounded-xl shadow border border-red-500/30 transition-colors">
           <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-            <span className="font-medium">High Risk</span>
+            <span className="w-3 h-3 bg-red-500 rounded-full inline-block"></span>
+            <span className="font-medium text-red-100">High Risk</span>
           </div>
-          <div className="text-sm text-gray-300 mt-1">Risk score &gt; 0.7</div>
+          <div className="text-sm text-red-100 mt-1">Risk score &gt; 0.7</div>
         </div>
       </div>
     </div>

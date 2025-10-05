@@ -3,59 +3,57 @@ import { NavLink } from "react-router-dom";
 
 const Navigation = () => {
   return (
-    <nav>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex space-x-8">
+    <nav aria-label="Main navigation">
+      <ul className="flex flex-wrap gap-2 md:gap-6 justify-center items-center">
+        <li>
           <NavLink
             to="/dashboard"
             className={({ isActive }) =>
-              `py-4 px-2 border-b-2 font-medium text-base transition-colors ${
-                isActive
-                  ? "border-b-blue-600 text-blue-700"
-                  : "border-transparent text-blue-500 hover:text-blue-700 hover:border-blue-200"
+              `px-4 py-2 rounded-lg font-semibold border-b-2  transition-all    ${
+                isActive ? "border-b-blue-500" : " hover:border-b-blue-500 "
               }`
             }
           >
             Dashboard
           </NavLink>
+        </li>
+        <li>
           <NavLink
             to="/simulation"
             className={({ isActive }) =>
-              `py-4 px-2 border-b-2 font-medium text-base transition-colors ${
-                isActive
-                  ? "border-b-blue-600 text-blue-700"
-                  : "border-transparent text-blue-500 hover:text-blue-700 hover:border-blue-200"
+              `px-4 py-2 rounded-lg font-semibold border-b-2  transition-all    ${
+                isActive ? "border-b-blue-500" : " hover:border-b-blue-500"
               }`
             }
           >
             Simulation
           </NavLink>
+        </li>
+        <li>
           <NavLink
             to="/mitigation"
             className={({ isActive }) =>
-              `py-4 px-2 border-b-2 font-medium text-base transition-colors ${
-                isActive
-                  ? "border-b-blue-600 text-blue-700"
-                  : "border-transparent text-blue-500 hover:text-blue-700 hover:border-blue-200"
+              `px-4 py-2 rounded-lg font-semibold border-b-2  transition-all    ${
+                isActive ? "border-b-blue-500" : " hover:border-b-blue-500 "
               }`
             }
           >
             Mitigation
           </NavLink>
+        </li>
+        <li>
           <NavLink
             to="/analysis"
             className={({ isActive }) =>
-              `py-4 px-2 border-b-2 font-medium text-base transition-colors ${
-                isActive
-                  ? "border-b-blue-600 text-blue-700"
-                  : "border-transparent text-blue-500 hover:text-blue-700 hover:border-blue-200"
+              `px-4 py-2 rounded-lg font-semibold border-b-2  transition-all    ${
+                isActive ? "border-b-blue-500" : "hover:border-b-blue-500"
               }`
             }
           >
             Analysis
           </NavLink>
-        </div>
-      </div>
+        </li>
+      </ul>
     </nav>
   );
 };

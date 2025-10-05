@@ -17,21 +17,26 @@ export const getAsteroidDetails = async (id) => {
 };
 
 export const simulateImpact = async (
+  asteroidId = null,
   diameter,
   velocity,
   velocityChange = 0,
-  asteroidId = null
+  lat,
+  lon
 ) => {
-  const body = { diameter, velocity, velocityChange };
-  if (asteroidId) body.asteroidId = asteroidId;
-  const res = await axios.post(`${API_URL}/asteroids/simulate-impact`, body);
-  return res.data;
+  try {
+    const body = { diameter, velocity, velocityChange, lat, lon };
+    if (asteroidId) body.asteroidId = asteroidId;
+    const res = await axios.post(`${API_URL}/asteroids/simulate-impact`, body);
+    return res.data;
+  } catch (error) {
+    console.log("simulation", error);
+  }
 };
 
 // USGS data endpoints
 export const getSeismicData = async () => {
   const res = await axios.get(`${API_URL}/usgs/seismic`);
-  console.log(res?.data);
   return res.data;
 };
 
@@ -77,6 +82,7 @@ export const runKineticImpactor = async (parameters) => {
     `${API_URL}/mitigation/kinetic-impactor`,
     parameters
   );
+  console.log(res.data);
   return res.data;
 };
 

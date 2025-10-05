@@ -133,29 +133,29 @@ export function useStorage() {
           payload: Number(parseFloat(relVel).toFixed(2)),
         });
       // trigger an immediate simulation (using asteroid defaults)
-      const sim = await simulateImpact(
-        avgD || size,
-        relVel || velocity,
-        velocityChange,
-        selectedId
-      );
-      dispatch({ type: "setImpactResult", payload: sim });
+      // const sim = await simulateImpact(
+      //   avgD || size,
+      //   relVel || velocity,
+      //   velocityChange,
+      //   selectedId
+      // );
+      // dispatch({ type: "setImpactResult", payload:  });
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedId]);
 
   // When size/velocity/velocityChange change, re-simulate (but keep asteroidId if selected)
-  useEffect(() => {
-    (async () => {
-      const sim = await simulateImpact(
-        size,
-        velocity,
-        velocityChange,
-        selectedId
-      );
-      dispatch({ type: "setImpactResult", payload: sim });
-    })();
-  }, [size, velocity, velocityChange, selectedId]);
+  // useEffect(() => {
+  //   (async () => {
+  //     const sim = await simulateImpact(
+  //       size,
+  //       velocity,
+  //       velocityChange,
+  //       selectedId
+  //     );
+  //     dispatch({ type: "setImpactResult", payload: sim });
+  //   })();
+  // }, [size, velocity, velocityChange, selectedId]);
 
   const setSelectedId = useCallback((input) => {
     dispatch({ type: "setSelectedId", payload: input });
@@ -184,6 +184,10 @@ export function useStorage() {
   const setShowEducational = useCallback((toggle) => {
     dispatch({ type: "setShowEducational", payload: toggle });
   }, []);
+
+  const setImpactResult = useCallback((data) => {
+    dispatch({ type: "setImpactResult", payload: data });
+  }, []);
   return {
     asteroidsData,
     selectedId,
@@ -203,5 +207,6 @@ export function useStorage() {
     setMitigationResults,
     setShowScenario,
     setShowEducational,
+    setImpactResult,
   };
 }
