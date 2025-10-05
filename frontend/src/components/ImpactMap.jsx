@@ -16,7 +16,7 @@ import "leaflet/dist/leaflet.css";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
-import { dataContext } from "@/Context";
+import { dataContext } from "@/context";
 //import { getSeismicData } from "@/services/api";
 
 // Fix for default markers in react-leaflet

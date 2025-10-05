@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import ImpactMap from "./ImpactMap";
 import AsteroidSelector from "./AsteroidSelector";
-import { dataContext } from "@/Context";
+import { dataContext } from "@/context";
 import { simulateImpact } from "@/services/api";
 
 const Simulation = () => {

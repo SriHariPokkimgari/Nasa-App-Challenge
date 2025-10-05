@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { dataContext } from "@/Context";
+import { dataContext } from "@/context";
 
 const Dashboard = () => {
   const {

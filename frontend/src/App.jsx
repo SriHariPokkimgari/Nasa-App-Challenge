@@ -7,7 +7,7 @@ import MitigationPanel from "./components/MitigationPanel";
 import EducationalOverlay from "./components/EducationalOverlay";
 import Impactor2025Scenario from "./components/Impactor2025Scenario";
 //import "./accessibility.css";
-import { dataContext } from "./Context";
+import { dataContext } from "./context";
 import Header from "./components/Header";
 
 import Simulation from "./components/Simulation";

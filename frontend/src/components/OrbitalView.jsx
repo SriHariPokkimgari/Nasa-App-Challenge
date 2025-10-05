@@ -3,7 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Stars, Text, Html } from "@react-three/drei";
 import * as THREE from "three";
 import Asteroid from "./Asteroid";
-import { dataContext } from "@/Context";
+import { dataContext } from "@/context";
 
 const Earth = ({ selectedAsteroid }) => {
   const earthRef = useRef();

@@ -1,4 +1,4 @@
-import { dataContext } from "@/Context";
+import { dataContext } from "@/context";
 import React, { useContext } from "react";
 
 const Analysis = () => {
